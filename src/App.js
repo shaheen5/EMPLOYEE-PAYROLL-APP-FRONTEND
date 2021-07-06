@@ -1,12 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
+import {Register} from './pages/register'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-      EMPLOYEE PAYROLL APP
-      </header>
+    <div className="App" >
+      <Register/>
     </div>
   );
 }
