@@ -40,26 +40,26 @@ export const Register = () => {
                                 name="firstName"
                                 label='First Name'
                                 placeholder="Enter your first name"
-                                helperText={<ErrorMessage name="firstName" />} />
+                                helperText={<ErrorMessage name="firstName">{ msg => <div style={{ color: 'red' }}>{msg}</div> }</ErrorMessage>} />
                             <Field as={TextField}
                                 fullWidth
                                 name="lastName"
                                 label='Last Name'
-                                placeholder="Enter your last email"
-                                helperText={<ErrorMessage name="lastName" />} />
+                                placeholder="Enter your last name"
+                                helperText={<ErrorMessage name="lastName">{ msg => <div style={{ color: 'red' }}>{msg}</div> }</ErrorMessage>} />
                             <Field as={TextField}
                                 fullWidth
                                 name="email"
                                 label='Email'
                                 placeholder="Enter your email id"
-                                helperText={<ErrorMessage name="email" />} />
+                                helperText={<ErrorMessage name="email">{ msg => <div style={{ color: 'red' }}>{msg}</div> }</ErrorMessage>} />
                             <Field as={TextField}
                                 fullWidth
                                 name="password"
                                 label='Password'
                                 type="password"
                                 placeholder="Enter your password"
-                                helperText={<ErrorMessage name="password" />} />
+                                helperText={<ErrorMessage name="password">{ msg => <div style={{ color: 'red' }}>{msg}</div> }</ErrorMessage>} />
                             <Button type='submit' variant='contained' color='primary' style={btnstyle}>Sign up</Button>
                             <Typography > Already Registered User ?
                                 <Link href="#" >
