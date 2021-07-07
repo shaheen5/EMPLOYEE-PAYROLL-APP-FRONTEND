@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom'
 
 export const Register = () => {
     const paperStyle = { padding: '30px 20px', width: 300, margin: "20px auto" }
-    const headerStyle = { margin: 0 }
+    const headerStyle = { margin:0 }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
-    const btnstyle = { margin: '8px 0' }
+    const btnstyle = { margin: '15px 0' }
+    const titleStyle = { display: 'flex', alignItems: 'center', flexWrap: 'wrap', margin: 0 }
     const initialValues = {
         firstName: '',
         lastName: '',
@@ -31,10 +32,12 @@ export const Register = () => {
     return (
         <Grid>
             <Paper elevation={20} style={paperStyle}>
-                <Grid align='center'>
+                <Grid style={titleStyle}>
                     <Avatar style={avatarStyle} src="https://www.exactax.com/track/img/hr.png" />
-                    <h2 style={headerStyle}>Registration Form</h2>
+                    <span><h2 style={{ padding: "5px" }}>EMPLOYEE PAYROLL</h2></span>
                 </Grid>
+                <h2 style={headerStyle}>Registration Form</h2>
+
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
                     {(props) => (
                         < Form >
