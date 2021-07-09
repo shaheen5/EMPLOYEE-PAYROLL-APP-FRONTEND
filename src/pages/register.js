@@ -3,8 +3,8 @@ import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
 import { Link } from 'react-router-dom'
-import Axios from 'axios'
-Axios.defaults.baseURL='http://localhost:8000'
+import { userRegistration} from '../services/user';
+
 
 export const Register = () => {
     const paperStyle = { padding: '30px 20px', width: 300, margin: "20px auto" }
@@ -25,12 +25,7 @@ export const Register = () => {
             "emailId": values.email,
             "password": values.password
         }
-        console.log(userCredentials)
-        Axios.post('/registerUser',userCredentials ).then((res) => {
-            console.log(res.data);
-        }).catch(error => {
-            console.log('error');
-        })
+        userRegistration(userCredentials);
         props.resetForm();
     }
     const validationSchema = Yup.object().shape({
