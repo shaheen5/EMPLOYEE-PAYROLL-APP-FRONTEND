@@ -3,10 +3,12 @@ import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
 import { Link } from 'react-router-dom'
+import Axios from 'axios'
+Axios.defaults.baseURL='http://localhost:8000'
 
 export const Register = () => {
     const paperStyle = { padding: '30px 20px', width: 300, margin: "20px auto" }
-    const headerStyle = { margin:0 }
+    const headerStyle = { margin: 0 }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
     const btnstyle = { margin: '15px 0' }
     const titleStyle = { display: 'flex', alignItems: 'center', flexWrap: 'wrap', margin: 0 }
@@ -17,7 +19,19 @@ export const Register = () => {
         password: ''
     }
     const onSubmit = (values, props) => {
-        console.log(values);
+        const userCredentials = {
+            "firstName":values.firstName,
+            "lastName":values.lastName,
+            "emailId": values.email,
+            "password": values.password
+        }
+        console.log(userCredentials)
+        Axios.post('/registerUser',userCredentials ).then((res) => {
+            console.log(res.data.message);
+        }).catch(error => {
+            console.log('error');
+        })
+        props.resetForm();
     }
     const validationSchema = Yup.object().shape({
         firstName: Yup.string().min(3, "First Name is too short")

@@ -4,17 +4,30 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
 import { Link } from 'react-router-dom'
+import Axios from 'axios'
+Axios.defaults.baseURL='http://localhost:8000'
 
 export const Login = () => {
     const paperStyle = { padding: 20, height: '70vh', width: 280, margin: "20px auto" }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
     const btnstyle = { margin: '25px 0' }
+ 
     const initialValues = {
         email: '',
         password: ''
     }
     const onSubmit = (values, props) => {
-        console.log(values);
+        const loginDetails = {
+            "emailId":values.email,
+            "password":values.password
+        }
+        console.log(loginDetails)
+        Axios.post('/login',loginDetails).then((res)=>{
+            console.log(res.data.message);
+        }).catch(error => {
+            console.log('error');
+        })
+        props.resetForm();
     }
     const validationSchema = Yup.object().shape({
         email: Yup.string().email("Enter valid email").required("Required"),
