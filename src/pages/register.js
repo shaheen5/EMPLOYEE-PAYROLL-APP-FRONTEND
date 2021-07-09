@@ -27,7 +27,7 @@ export const Register = () => {
         }
         console.log(userCredentials)
         Axios.post('/registerUser',userCredentials ).then((res) => {
-            console.log(res.data.message);
+            console.log(res.data);
         }).catch(error => {
             console.log('error');
         })
