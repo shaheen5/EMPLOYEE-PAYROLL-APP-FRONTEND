@@ -45,7 +45,7 @@ describe('Login Form test', () => {
     const email = getByTestId('email');
     const password = getByTestId('password');
 
-    expect(email).toHaveTextContent('email');
+    expect(email).toHaveTextContent('User Email');
     expect(password).toHaveTextContent('password');
 
   });
