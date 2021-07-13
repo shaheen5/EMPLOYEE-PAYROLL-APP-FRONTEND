@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
+    logoutButton: {
+        justifyContent: 'flex-end'
+    },
     menuButton: {
         marginRight: theme.spacing(2),
     },
@@ -115,7 +118,6 @@ export function Dashboard() {
                     <Typography variant="h6" noWrap>
                         EMPLOYEE PAYROLL
                     </Typography>
-                    
                 </Toolbar>
             </AppBar>
             <Drawer

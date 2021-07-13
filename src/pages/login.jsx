@@ -2,12 +2,13 @@ import React from 'react'
 import { Grid, Paper, Avatar, Button, Typography, TextField } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link,useHistory} from 'react-router-dom';
 import * as Yup from 'yup'
 import { User } from '../services/user'
 const user = new User();
 
 export const Login = () => {
+    const history = useHistory();
     const paperStyle = { padding: 20, height: '70vh', width: 280, margin: "20px auto" }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
     const btnstyle = { margin: '25px 0' }
@@ -24,6 +25,7 @@ export const Login = () => {
         user.userLogin(loginDetails)
             .then(response => {
                 localStorage.setItem('token', response.data.data);
+                history.push('/dashboard');
             }).catch(error => {
                 console.log(error.message);
             });

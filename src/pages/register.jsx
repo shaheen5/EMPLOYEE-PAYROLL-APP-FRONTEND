@@ -3,10 +3,11 @@ import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
 import { User } from '../services/user'
-import { Link } from 'react-router-dom';
+import { Link,useHistory } from 'react-router-dom';
 const user = new User();
 
 export const Register = () => {
+    const history = useHistory();
     const paperStyle = { padding: '30px 20px', width: 300, margin: "20px auto" }
     const headerStyle = { margin: 0 }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
@@ -28,6 +29,7 @@ export const Register = () => {
         user.userRegistration(userCredentials)
             .then((response) => {
                 alert(response.data.message);
+                history.push('/login');
             })
             .catch((error) => {
                 console.log(error.message);
