@@ -1,4 +1,5 @@
 import React from 'react';
+import '../scss/dashboard.scss'
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -26,6 +27,10 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
+        flexGrow: 1,
+    },
+    logoutButton: {
+        marginLeft: theme.spacing(120),
     },
     appBar: {
         transition: theme.transitions.create(['margin', 'width'], {
@@ -40,9 +45,6 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
-    },
-    logoutButton: {
-        justifyContent: 'flex-end'
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -97,7 +99,7 @@ export function Dashboard() {
     };
 
     return (
-        <div className={classes.root}>
+        <div className='root'>
             <CssBaseline />
             <AppBar
                 position="fixed"
@@ -105,7 +107,7 @@ export function Dashboard() {
                     [classes.appBarShift]: open,
                 })}
             >
-                <Toolbar>
+                <Toolbar className='toolbar'>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -115,9 +117,10 @@ export function Dashboard() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap>
+                    <Typography variant="h6" >
                         EMPLOYEE PAYROLL
                     </Typography>
+                    <Button className={classes.logoutButton} variant="outlined" color="inherit" href="#">LOGOUT</Button>
                 </Toolbar>
             </AppBar>
             <Drawer
