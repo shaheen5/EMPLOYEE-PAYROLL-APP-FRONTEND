@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 import '../scss/dashboard.scss'
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -143,7 +144,7 @@ export function Dashboard() {
                         <ListItemIcon>{<ViewListIcon />}</ListItemIcon>
                         <ListItemText primary="List" />
                     </ListItem>
-                    <ListItem button key="Add">
+                    <ListItem button key="Add" to='/dashboard/addEmployee' component={Link}>
                         <ListItemIcon>{<PersonAddIcon />}</ListItemIcon>
                         <ListItemText primary="Add" />
                     </ListItem>
@@ -151,7 +152,7 @@ export function Dashboard() {
                         <ListItemIcon>{<EditIcon />}</ListItemIcon>
                         <ListItemText primary="Edit" />
                     </ListItem>
-                    <ListItem button key="Delete">
+                    <ListItem button key="Delete" >
                         <ListItemIcon>{<DeleteIcon />}</ListItemIcon>
                         <ListItemText primary="Delete" />
                     </ListItem>

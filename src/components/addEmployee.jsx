@@ -1,18 +1,14 @@
 import React from 'react'
-import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core'
+import { Grid, Paper,TextField, Button } from '@material-ui/core'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
-import { User } from '../services/user'
-import { Link, useHistory } from 'react-router-dom';
-const user = new User();
+import { Employee } from '../services/employee'
+const employee = new Employee();
 
-export const Register = () => {
-    const history = useHistory();
-    const paperStyle = { padding: '30px 20px', width: 300, margin: "20px auto" }
+export const AddEmployee = () => {
+    const paperStyle = { padding: '30px 20px', width: 300, margin: "120px auto" }
     const headerStyle = { margin: 0 }
-    const avatarStyle = { backgroundColor: '#1bbd7e' }
     const btnstyle = { margin: '15px 0' }
-    const titleStyle = { display: 'flex', alignItems: 'center', flexWrap: 'wrap', margin: 0 }
     const initialValues = {
         firstName: '',
         lastName: '',
@@ -20,16 +16,15 @@ export const Register = () => {
         password: ''
     }
     const onSubmit = (values, props) => {
-        const userCredentials = {
+        const employeeDetails = {
             "firstName": values.firstName,
             "lastName": values.lastName,
             "emailId": values.email,
             "password": values.password
         }
-        user.userRegistration(userCredentials)
+        employee.createEmployee(employeeDetails)
             .then((response) => {
                 alert(response.data.message);
-                history.push('/login');
             })
             .catch((error) => {
                 console.log(error.message);
@@ -49,11 +44,7 @@ export const Register = () => {
     return (
         <Grid>
             <Paper elevation={20} style={paperStyle}>
-                <Grid style={titleStyle}>
-                    <Avatar style={avatarStyle} src="https://www.exactax.com/track/img/hr.png" data-testid='logo' />
-                    <span><h2 style={{ padding: "5px" }} data-testid='title'>EMPLOYEE PAYROLL</h2></span>
-                </Grid>
-                <h2 style={headerStyle} data-testid='heading'>Registration Form</h2>
+                <h2 style={headerStyle} data-testid='heading'>Employee Details</h2>
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
                     {(props) => (
                         < Form data-testid='form'>
@@ -87,12 +78,7 @@ export const Register = () => {
                                 placeholder="Enter your password"
                                 helperText={<ErrorMessage name="password">{msg => <div style={{ color: 'red' }}>{msg}</div>}</ErrorMessage>} />
                             <Button type='submit' variant='contained' color='primary' style={btnstyle} data-testid='submitButton'>
-                                Sign up</Button>
-                            <Typography > Already Registered User ?
-                                <Link data-testid='link' to='/login' >
-                                    Log In
-                                </Link>
-                            </Typography>
+                                Submit</Button>
                         </Form>
                     )
                     }

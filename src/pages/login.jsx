@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, Paper, Avatar, Button, Typography, TextField } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { Link,useHistory} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup'
 import { User } from '../services/user'
 const user = new User();
