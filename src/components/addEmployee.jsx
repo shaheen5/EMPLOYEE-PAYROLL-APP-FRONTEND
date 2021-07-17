@@ -3,9 +3,11 @@ import { Grid, Paper,TextField, Button } from '@material-ui/core'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
 import { Employee } from '../services/employee'
+import { useHistory } from 'react-router-dom';
 const employee = new Employee();
 
 export const AddEmployee = () => {
+    const history = useHistory();
     const paperStyle = { padding: '30px 20px', width: 300, margin: "120px auto" }
     const headerStyle = { margin: 0 }
     const btnstyle = { margin: '15px 0' }
@@ -22,12 +24,14 @@ export const AddEmployee = () => {
             "emailId": values.email,
             "password": values.password
         }
+        console.log(employeeDetails);
         employee.createEmployee(employeeDetails)
             .then((response) => {
                 alert(response.data.message);
+                history.push('/dashboard');
             })
             .catch((error) => {
-                console.log(error.message);
+                console.log(error);
             });
         props.resetForm();
     }
