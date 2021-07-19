@@ -8,6 +8,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Employee } from '../services/employee'
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import {Link} from 'react-router-dom'
 const employee = new Employee();
 
 const StyledTableCell = withStyles((theme) => ({
@@ -81,7 +85,11 @@ export const ListEmployees = () => {
               <StyledTableCell >{employee.salary}</StyledTableCell>
               <StyledTableCell >{employee.department}</StyledTableCell>
               <StyledTableCell >{employee.emailId}</StyledTableCell>
-              <StyledTableCell ></StyledTableCell>
+              <StyledTableCell >
+                <Link to='/dashboard/viewEmployee'><VisibilityIcon style={{ fill: '#000000' }}/></Link>&nbsp;&nbsp;&nbsp;
+                <Link to='/dashboard/updateEmployee'><EditIcon style={{ fill: '#000000' }}/></Link>&nbsp;&nbsp;&nbsp;
+                <Link><DeleteIcon style={{ fill: '#000000' }}/></Link>
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
