@@ -16,6 +16,11 @@ export class Employee {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    });
+    }).then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error;
+    });;
   }
 }

@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
-import App from '../App';
+import { render } from "@testing-library/react";
+import App from "../App";
 
-test('login form should be in the document', () => {
+test("login form should be in the document", () => {
   const component = render(<App />);
   console.log(component);
 });

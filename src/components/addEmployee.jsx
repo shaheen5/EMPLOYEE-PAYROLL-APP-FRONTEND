@@ -1,35 +1,42 @@
 import React from "react";
-import { Grid, Paper, TextField, Button } from "@material-ui/core";
+import { Grid, Paper, TextField, Button, FormLabel } from "@material-ui/core";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Employee } from "../services/employee";
 import { useHistory } from "react-router-dom";
+import { FormControlLabel, Radio } from '@material-ui/core'
+import { RadioGroup } from 'formik-material-ui';
+
 const employee = new Employee();
 
 export const AddEmployee = () => {
   const history = useHistory();
-  const paperStyle = { padding: "30px 20px", width: 300, margin: "120px auto" };
+  const paperStyle = { padding: "30px 30px", width: 350, margin: "100px auto" };
   const headerStyle = { margin: 0 };
   const btnstyle = { margin: "15px 0" };
   const initialValues = {
     firstName: "",
     lastName: "",
-    email: "",
-    password: "",
+    gender:"",
+    salary:"",
+    department:"",
+    email: ""
   };
   const onSubmit = (values, props) => {
     const employeeDetails = {
       firstName: values.firstName,
       lastName: values.lastName,
-      emailId: values.email,
-      password: values.password,
+      gender: values.gender,
+      salary: values.salary,
+      department: values.department,
+      emailId: values.email
     };
-    console.log(employeeDetails);
+
     employee
       .createEmployee(employeeDetails)
       .then((response) => {
         alert(response.data.message);
-        history.push("/dashboard");
+        history.push("/dashboard/ListEmployees");
       })
       .catch((error) => {
         console.log(error);
@@ -45,14 +52,12 @@ export const AddEmployee = () => {
       .min(3, "Last Name is too short")
       .matches(/^[a-zA-Z]{3,}$/, "Last Name should contain characters")
       .required("Required"),
+    salary:Yup.number()
+      .required("Required") ,
+    department:Yup.string()
+      .matches(/^[a-zA-Z]{2,20}$/,"Min 2 Characters are required")
+      .required("Required"),  
     email: Yup.string().email("Enter valid email").required("Required"),
-    password: Yup.string()
-      .min(8, "Password should be atleast 8 characters long")
-      .matches(
-        /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
-        "Password should conatin letters,numbers & special characters"
-      )
-      .required("Required"),
   });
   return (
     <Grid>
@@ -83,12 +88,50 @@ export const AddEmployee = () => {
               <Field
                 as={TextField}
                 fullWidth
+                style={{padding:"5px"}}
                 name="lastName"
                 label="Last Name"
                 data-testid="lastName"
                 placeholder="Enter your last name"
                 helperText={
                   <ErrorMessage name="lastName">
+                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  </ErrorMessage>
+                }
+              />
+              <Field component={RadioGroup} row="true" name="gender">
+              <FormLabel style={{padding:"12px",align:'left'}}> Gender</FormLabel>
+                <FormControlLabel
+                  value="Male"
+                  control={<Radio />}
+                  label="Male"
+                />
+                <FormControlLabel
+                  value="Female"
+                  control={<Radio />}
+                  label="Female"
+                />
+              </Field>
+              <Field
+                as={TextField}
+                fullWidth
+                name="salary"
+                label="Salary Amount"
+                data-testid="salary"
+                helperText={
+                  <ErrorMessage name="salary">
+                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  </ErrorMessage>
+                }
+              />
+              <Field
+                as={TextField}
+                fullWidth
+                name="department"
+                label="Department"
+                data-testid="department"
+                helperText={
+                  <ErrorMessage name="department">
                     {(msg) => <div style={{ color: "red" }}>{msg}</div>}
                   </ErrorMessage>
                 }
@@ -102,20 +145,6 @@ export const AddEmployee = () => {
                 placeholder="Enter your email id"
                 helperText={
                   <ErrorMessage name="email">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                  </ErrorMessage>
-                }
-              />
-              <Field
-                as={TextField}
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                data-testid="password"
-                placeholder="Enter your password"
-                helperText={
-                  <ErrorMessage name="password">
                     {(msg) => <div style={{ color: "red" }}>{msg}</div>}
                   </ErrorMessage>
                 }
