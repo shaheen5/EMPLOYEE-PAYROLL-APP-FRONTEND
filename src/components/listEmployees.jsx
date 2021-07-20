@@ -57,7 +57,6 @@ export const ListEmployees = () => {
       console.log(error.message);
     })
   },[]);
-
   const classes = useStyles();
 
   return (
@@ -87,7 +86,7 @@ export const ListEmployees = () => {
               <StyledTableCell >{employee.emailId}</StyledTableCell>
               <StyledTableCell >
                 <Link to='/dashboard/viewEmployee'><VisibilityIcon style={{ fill: '#000000' }}/></Link>&nbsp;&nbsp;&nbsp;
-                <Link to='/dashboard/updateEmployee'><EditIcon style={{ fill: '#000000' }}/></Link>&nbsp;&nbsp;&nbsp;
+                <Link to={`/dashboard/updateEmployee/${employee._id}`}><EditIcon style={{ fill: '#000000' }}/></Link>&nbsp;&nbsp;&nbsp;
                 <Link><DeleteIcon style={{ fill: '#000000' }}/></Link>
               </StyledTableCell>
             </StyledTableRow>

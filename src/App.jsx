@@ -20,6 +20,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Dashboard } from "./components/dashboard";
 import { AddEmployee } from "./components/addEmployee";
 import { ListEmployees } from "./components/listEmployees";
+import { UpdateEmployee } from "./components/updateEmployee"
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/dashboard/addEmployee" component={AddEmployee} />
         <Route path="/dashboard/listEmployees" component={ListEmployees} />
+        <Route path="/dashboard/updateEmployee/:employeeId" component={UpdateEmployee} />
       </div>
     </BrowserRouter>
   );

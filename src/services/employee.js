@@ -23,4 +23,32 @@ export class Employee {
       return error;
     });;
   }
+
+  editEmployee = (empData,employeeId)=>{
+    return Axios.put(`/updateEmployee/${employeeId}`,
+    empData,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error;
+    });;
+  }
+
+  getEmployee = (empData,employeeId)=>{
+    return Axios.get(`/getEmployee/${employeeId}`,
+    empData,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error;
+    });;
+  }
 }
