@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link , useHistory} from "react-router-dom";
 import "../scss/dashboard.scss";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -87,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function Dashboard() {
+  const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -99,6 +100,10 @@ export function Dashboard() {
     setOpen(false);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+      history.push("/login");
+  };
 
   return (
     <div className="root">
@@ -125,6 +130,7 @@ export function Dashboard() {
             variant="outlined"
             color="inherit"
             href="#"
+            onClick={handleLogout}
           >
             LOGOUT
           </Button>
