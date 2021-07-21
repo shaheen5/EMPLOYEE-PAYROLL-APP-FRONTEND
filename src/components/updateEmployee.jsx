@@ -26,13 +26,13 @@ export const UpdateEmployee = () => {
     const [empData, setEmployee] = useState(initialValues);
 
     useEffect(() => {
-        employee.getEmployee(empData, employeeId).then((response) => {
+        employee.getEmployee(employeeId).then((response) => {
             setEmployee(response.data.data);
-            console.log(response.data);
         }).catch(error => {
             console.log(error);
-        })
+        });
     });
+
     const onSubmit = (event, props) => {
         event.preventDefault();
         employee
@@ -47,10 +47,14 @@ export const UpdateEmployee = () => {
             });
         props.resetForm();
     };
+    let {firstName,lastName,gender,salary,department,emailId}=empData;
+
     const onInputChange = (e) => {
-        setEmployee(...empData, { [e.target.name]: e.target.value });
+        console.log(empData);
+        setEmployee({...empData, [e.target.name]: e.target.value });
+        console.log(empData);
     }
-    
+
     const validationSchema = Yup.object().shape({
         firstName: Yup.string()
             .min(3, "First Name is too short")
@@ -87,8 +91,8 @@ export const UpdateEmployee = () => {
                                 label="First Name"
                                 data-testid="firstName"
                                 placeholder="Enter your first name"
-                                value={empData.firstName}
-                                onChange={e => onInputChange(e)}
+                                value={firstName}
+                                onChange={e => {onInputChange(e)}}
                                 helperText={
                                     <ErrorMessage name="firstName">
                                         {(msg) => <div style={{ color: "red" }}>{msg}</div>}
@@ -103,7 +107,7 @@ export const UpdateEmployee = () => {
                                 label="Last Name"
                                 data-testid="lastName"
                                 placeholder="Enter your last name"
-                                value={empData.lastName}
+                                value={lastName}
                                 onChange={e => onInputChange(e)}
                                 helperText={
                                     <ErrorMessage name="lastName">
@@ -111,28 +115,13 @@ export const UpdateEmployee = () => {
                                     </ErrorMessage>
                                 }
                             />
-                            <Field component={RadioGroup} row="true" name="gender">
-                                <FormLabel style={{ padding: "12px", align: 'left' }}> Gender</FormLabel>
-                                <FormControlLabel
-                                    value="Male"
-                                    control={<Radio />}
-                                    label="Male"
-                                    onChange={e => onInputChange(e)}
-                                />
-                                <FormControlLabel
-                                    value="Female"
-                                    control={<Radio />}
-                                    label="Female"
-                                    onChange={e => onInputChange(e)}
-                                />
-                            </Field>
                             <Field
                                 as={TextField}
                                 fullWidth
                                 name="salary"
                                 label="Salary Amount"
                                 data-testid="salary"
-                                value={empData.salary}
+                                value={salary}
                                 onChange={e => onInputChange(e)}
                                 helperText={
                                     <ErrorMessage name="salary">
@@ -146,7 +135,7 @@ export const UpdateEmployee = () => {
                                 name="department"
                                 label="Department"
                                 data-testid="department"
-                                value={empData.department}
+                                value={department}
                                 onChange={e => onInputChange(e)}
                                 helperText={
                                     <ErrorMessage name="department">
@@ -161,7 +150,7 @@ export const UpdateEmployee = () => {
                                 label="Email"
                                 data-testid="email"
                                 placeholder="Enter your email id"
-                                value={empData.email}
+                                value={emailId}
                                 onChange={e => onInputChange(e)}
                                 helperText={
                                     <ErrorMessage name="email">
@@ -169,6 +158,19 @@ export const UpdateEmployee = () => {
                                     </ErrorMessage>
                                 }
                             />
+                            <Field component={RadioGroup} row="true" name="gender">
+                                <FormLabel style={{ padding: "12px", align: 'left' }}> Gender</FormLabel>
+                                <FormControlLabel
+                                    value="Male"
+                                    control={<Radio />}
+                                    label="Male"
+                                />
+                                <FormControlLabel
+                                    value="Female"
+                                    control={<Radio />}
+                                    label="Female"
+                                />
+                            </Field>
                             <Button
                                 type="submit"
                                 variant="contained"

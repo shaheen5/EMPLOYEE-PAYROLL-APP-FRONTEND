@@ -17,9 +17,9 @@ export const AddEmployee = () => {
   const initialValues = {
     firstName: "",
     lastName: "",
-    gender:"",
-    salary:"",
-    department:"",
+    gender: "",
+    salary: "",
+    department: "",
     email: ""
   };
   const onSubmit = (values, props) => {
@@ -52,11 +52,11 @@ export const AddEmployee = () => {
       .min(3, "Last Name is too short")
       .matches(/^[a-zA-Z]{3,}$/, "Last Name should contain characters")
       .required("Required"),
-    salary:Yup.number()
-      .required("Required") ,
-    department:Yup.string()
-      .matches(/^[a-zA-Z]{2,20}$/,"Min 2 Characters are required")
-      .required("Required"),  
+    salary: Yup.number()
+      .required("Required"),
+    department: Yup.string()
+      .matches(/^[a-zA-Z]{2,20}$/, "Min 2 Characters are required")
+      .required("Required"),
     email: Yup.string().email("Enter valid email").required("Required"),
   });
   return (
@@ -88,7 +88,7 @@ export const AddEmployee = () => {
               <Field
                 as={TextField}
                 fullWidth
-                style={{padding:"5px"}}
+                style={{ padding: "5px" }}
                 name="lastName"
                 label="Last Name"
                 data-testid="lastName"
@@ -99,19 +99,6 @@ export const AddEmployee = () => {
                   </ErrorMessage>
                 }
               />
-              <Field component={RadioGroup} row="true" name="gender">
-              <FormLabel style={{padding:"12px",align:'left'}}> Gender</FormLabel>
-                <FormControlLabel
-                  value="Male"
-                  control={<Radio />}
-                  label="Male"
-                />
-                <FormControlLabel
-                  value="Female"
-                  control={<Radio />}
-                  label="Female"
-                />
-              </Field>
               <Field
                 as={TextField}
                 fullWidth
@@ -149,6 +136,19 @@ export const AddEmployee = () => {
                   </ErrorMessage>
                 }
               />
+              <Field component={RadioGroup} row="true" name="gender">
+                <FormLabel style={{ padding: "15px"}}> Gender</FormLabel>
+                <FormControlLabel
+                  value="Male"
+                  control={<Radio />}
+                  label="Male"
+                />
+                <FormControlLabel
+                  value="Female"
+                  control={<Radio />}
+                  label="Female"
+                />
+              </Field>
               <Button
                 type="submit"
                 variant="contained"

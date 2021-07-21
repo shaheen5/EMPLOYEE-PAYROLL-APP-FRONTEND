@@ -16,12 +16,7 @@ export class Employee {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }).then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      return error;
-    });;
+    });
   }
 
   editEmployee = (empData,employeeId)=>{
@@ -30,25 +25,14 @@ export class Employee {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }).then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      return error;
-    });;
+    });
   }
 
-  getEmployee = (empData,employeeId)=>{
-    return Axios.get(`/getEmployee/${employeeId}`,
-    empData,{
+  getEmployee = (employeeId)=>{
+    return Axios.get(`/getEmployee/${employeeId}`,{
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }).then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      return error;
-    });;
-  }
+    });
+}
 }
