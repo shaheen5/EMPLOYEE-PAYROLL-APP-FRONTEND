@@ -11,7 +11,7 @@ import { Employee } from '../services/employee'
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 const employee = new Employee();
 
 const StyledTableCell = withStyles((theme) => ({
@@ -45,7 +45,9 @@ const tableStyle = {
 
 export const ListEmployees = () => {
   let [employees, setEmployees] = useState([]);
-  useEffect(() => {
+  const classes = useStyles();
+
+  const loadEmployees = () => {
     employee.getAllEmployees().then((response) => {
       if (response.data.success === true) {
         setEmployees(response.data.data);
@@ -55,9 +57,23 @@ export const ListEmployees = () => {
       }
     }).catch((error) => {
       console.log(error.message);
-    })
-  },[]);
-  const classes = useStyles();
+    });
+  };
+
+  useEffect(() => {
+    loadEmployees();
+  }, []);
+
+  const deleteEmployee = (employeeId) => {
+    employee.removeEmployee(employeeId)
+            .then((response)=>{
+              console.log(response)
+              alert(response.data.message);
+            }).catch(error=>{
+              console.log(error.message);
+            });
+    loadEmployees();
+  }
 
   return (
     <TableContainer component={Paper} style={tableStyle}>
@@ -85,9 +101,9 @@ export const ListEmployees = () => {
               <StyledTableCell >{employee.department}</StyledTableCell>
               <StyledTableCell >{employee.emailId}</StyledTableCell>
               <StyledTableCell >
-                <Link to='/dashboard/viewEmployee'><VisibilityIcon style={{ fill: '#000000' }}/></Link>&nbsp;&nbsp;&nbsp;
-                <Link to={`/dashboard/updateEmployee/${employee._id}`}><EditIcon style={{ fill: '#000000' }}/></Link>&nbsp;&nbsp;&nbsp;
-                <Link><DeleteIcon style={{ fill: '#000000' }}/></Link>
+                <Link to='/dashboard/viewEmployee'><VisibilityIcon style={{ fill: '#000000' }} /></Link>&nbsp;&nbsp;&nbsp;
+                <Link to={`/dashboard/updateEmployee/${employee._id}`}><EditIcon style={{ fill: '#000000' }} /></Link>&nbsp;&nbsp;&nbsp;
+                <Link onClick={() => { deleteEmployee(employee._id) }}><DeleteIcon style={{ fill: '#000000' }} /></Link>
               </StyledTableCell>
             </StyledTableRow>
           ))}

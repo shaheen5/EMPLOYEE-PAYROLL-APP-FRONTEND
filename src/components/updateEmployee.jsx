@@ -47,7 +47,7 @@ export const UpdateEmployee = () => {
             });
         props.resetForm();
     };
-    let {firstName,lastName,gender,salary,department,emailId}=empData;
+    let {firstName,lastName,salary,department,emailId}=empData;
 
     const onInputChange = (e) => {
         console.log(empData);

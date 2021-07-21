@@ -34,5 +34,14 @@ export class Employee {
         Authorization: `Bearer ${token}`,
       },
     });
-}
+  }
+
+  removeEmployee = (employeeId)=>{
+    return Axios.delete(`/deleteEmployee/${employeeId}`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
 }
