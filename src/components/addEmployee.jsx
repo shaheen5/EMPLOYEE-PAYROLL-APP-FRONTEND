@@ -61,7 +61,7 @@ export const AddEmployee = () => {
   });
   return (
     <Grid>
-      <Paper elevation={20} style={paperStyle}>
+      <Paper elevation={20} style={paperStyle} >
         <h2 style={headerStyle} data-testid="heading">
           Employee Details
         </h2>
@@ -136,8 +136,8 @@ export const AddEmployee = () => {
                   </ErrorMessage>
                 }
               />
-              <Field component={RadioGroup} row="true" name="gender">
-                <FormLabel style={{ padding: "15px"}}> Gender</FormLabel>
+              <Field component={RadioGroup} row="true" name="gender" >
+                <FormLabel style={{ padding: "15px"}} data-testid="gender"> Gender</FormLabel>
                 <FormControlLabel
                   value="Male"
                   control={<Radio />}
