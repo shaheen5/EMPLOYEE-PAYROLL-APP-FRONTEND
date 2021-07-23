@@ -31,7 +31,7 @@ export const UpdateEmployee = () => {
         }).catch(error => {
             console.log(error);
         });
-    });
+    },[empData]);
 
     const onSubmit = (event, props) => {
         event.preventDefault();
@@ -52,7 +52,7 @@ export const UpdateEmployee = () => {
     const onInputChange = (e) => {
         console.log(empData);
         setEmployee({...empData, [e.target.name]: e.target.value });
-        console.log(empData);
+        console.log("-----------",empData);
     }
 
     const validationSchema = Yup.object().shape({
@@ -81,6 +81,7 @@ export const UpdateEmployee = () => {
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={onSubmit}
+                    enableReinitialize={true}
                 >
                     {(props) => (
                         <Form data-testid="form">

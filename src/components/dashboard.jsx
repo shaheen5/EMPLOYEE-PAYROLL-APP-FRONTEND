@@ -1,5 +1,5 @@
 import React from "react";
-import { Link , useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../scss/dashboard.scss";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -101,8 +101,8 @@ export function Dashboard() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-      history.push("/login");
+    localStorage.clear();
+    history.push("/login");
   };
 
   return (
@@ -113,23 +113,25 @@ export function Dashboard() {
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
+        data-testid="appBar"
       >
-        <Toolbar className="toolbar">
+        <Toolbar className="toolbar" data-testid="toolbar">
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
+            data-testid="iconButton"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
-            <MenuIcon />
+            <MenuIcon  data-testid="menuIcon"/>
           </IconButton>
-          <Typography variant="h6">EMPLOYEE PAYROLL</Typography>
+          <Typography variant="h6" data-testid="header">EMPLOYEE PAYROLL</Typography>
           <Button
             className={classes.logoutButton}
             variant="outlined"
             color="inherit"
-            href="#"
+            data-testid="logoutButton"
             onClick={handleLogout}
           >
             LOGOUT
@@ -144,9 +146,10 @@ export function Dashboard() {
         classes={{
           paper: classes.drawerPaper,
         }}
+        data-testid="drawer"
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose} data-testid="drawerIconButton">
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (
@@ -154,32 +157,31 @@ export function Dashboard() {
             )}
           </IconButton>
         </div>
-        <Divider />
+        <Divider data-testid="divider"/>
         <List>
           <ListItem
             button
             key="List"
             to="/dashboard/ListEmployees"
-            component={Link}
+            data-testid="listElements"
           >
-            <ListItemIcon>{<ViewListIcon />}</ListItemIcon>
+            <ListItemIcon>{<ViewListIcon data-testid="listElementIcon"/>}</ListItemIcon>
             <ListItemText primary="List" />
           </ListItem>
           <ListItem
             button
             key="Add"
             to="/dashboard/addEmployee"
-            component={Link}
           >
-            <ListItemIcon>{<PersonAddIcon />}</ListItemIcon>
+            <ListItemIcon>{<PersonAddIcon data-testid="addElementIcon"/>}</ListItemIcon>
             <ListItemText primary="Add" />
           </ListItem>
           <ListItem button key="Edit">
-            <ListItemIcon>{<EditIcon />}</ListItemIcon>
+            <ListItemIcon>{<EditIcon data-testid="editElementIcon"/>}</ListItemIcon>
             <ListItemText primary="Edit" />
           </ListItem>
           <ListItem button key="Delete">
-            <ListItemIcon>{<DeleteIcon />}</ListItemIcon>
+            <ListItemIcon>{<DeleteIcon data-testid="deleteElementIcon"/>}</ListItemIcon>
             <ListItemText primary="Delete" />
           </ListItem>
         </List>
