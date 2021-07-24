@@ -4,13 +4,18 @@ import "@testing-library/jest-dom/extend-expect";
 
 
 describe("Heading tags test", () => {
-  
+
   it("render title element", () => {
     const { getByTestId } = render(<AddEmployee />);
     const title = getByTestId("heading");
     expect(title).toHaveTextContent("Employee Details");
   });
 
+  it("Given wrong title content should give proper result", () => {
+    const { getByTestId } = render(<AddEmployee />);
+    const title = getByTestId("heading");
+    expect(title).not.toContain("Employee")
+  });
 });
 
 describe("Employee Details Registration Form test", () => {

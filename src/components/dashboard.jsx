@@ -164,6 +164,7 @@ export function Dashboard() {
             key="List"
             to="/dashboard/ListEmployees"
             data-testid="listElements"
+            component={Link}
           >
             <ListItemIcon>{<ViewListIcon data-testid="listElementIcon"/>}</ListItemIcon>
             <ListItemText primary="List" />
@@ -172,6 +173,7 @@ export function Dashboard() {
             button
             key="Add"
             to="/dashboard/addEmployee"
+            component={Link}
           >
             <ListItemIcon>{<PersonAddIcon data-testid="addElementIcon"/>}</ListItemIcon>
             <ListItemText primary="Add" />
