@@ -32,27 +32,27 @@ export default class UpdateEmployee extends Component {
         this.setState({ [event.target.name]: event.target.value })
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const empId = this.props.match.params.employeeId;
         employee.getEmployee(empId)
-                .then((response)=>{
-                    console.log(response)
-                    if (response.data.success === true) {
-                        this.setState({
-                            firstName: response.data.firstName,
-                            lastName:response.data.lastName,
-                            gender:response.data.gender,
-                            salary:response.data.salary,
-                            department:response.data.department,
-                            emailId:response.data.emailId
-                        });
-                    }
-                    else {
-                        alert("employeee record not found!")
-                    }
-                }).catch((error) => {
-                    console.log(error.message);
-                });
+            .then((response) => {
+                const result = response.data.data;
+                if (response.data.success === true) {
+                    this.setState({
+                        firstName: result.firstName,
+                        lastName: result.lastName,
+                        gender: result.gender,
+                        salary: result.salary,
+                        department: result.department,
+                        emailId: result.emailId
+                    });
+                }
+                else {
+                    alert("employeee record not found!")
+                }
+            }).catch((error) => {
+                console.log(error.message);
+            });
     }
 
     handleSubmit = (event) => {
@@ -66,11 +66,11 @@ export default class UpdateEmployee extends Component {
             emailId: this.state.emailId,
         };
         const empId = this.props.match.params.employeeId;
-        employee.editEmployee(empData, empId).then((res) => { 
+        employee.editEmployee(empData, empId).then((res) => {
             console.log(res.data.message);
-         }).catch(error=>{
-             console.log(error.message)
-         })
+        }).catch(error => {
+            console.log(error.message)
+        })
     }
     render() {
         const paperStyle = { padding: "30px 30px", width: 350, margin: "100px auto" };
