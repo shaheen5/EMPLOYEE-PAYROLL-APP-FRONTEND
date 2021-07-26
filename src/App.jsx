@@ -20,7 +20,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Dashboard } from "./components/dashboard";
 import { AddEmployee } from "./components/addEmployee";
 import { ListEmployees } from "./components/listEmployees";
-import { UpdateEmployee } from "./components/updateEmployee"
+import UpdateEmployee from "./components/updateEmployee"
 
 function App() {
   return (

@@ -80,13 +80,13 @@ export const ListEmployees = () => {
       <Table className={classes.table} aria-label="customized table" data-testid="table">
         <TableHead>
           <TableRow data-testid="tableRowHeader">
-            <StyledTableCell>First Name</StyledTableCell>
-            <StyledTableCell >Last Name</StyledTableCell>
-            <StyledTableCell >Gender</StyledTableCell>
-            <StyledTableCell >Salary</StyledTableCell>
-            <StyledTableCell >Department</StyledTableCell>
-            <StyledTableCell >Email</StyledTableCell>
-            <StyledTableCell >Actions</StyledTableCell>
+            <StyledTableCell data-testid="firstName">First Name</StyledTableCell>
+            <StyledTableCell data-testid="lastName">Last Name</StyledTableCell>
+            <StyledTableCell data-testid="gender">Gender</StyledTableCell>
+            <StyledTableCell data-testid="salary">Salary</StyledTableCell>
+            <StyledTableCell data-testid="department">Department</StyledTableCell>
+            <StyledTableCell data-testid="email">Email</StyledTableCell>
+            <StyledTableCell data-testid="actions">Actions</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody data-testid="tableBody">
