@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Grid, Paper, TextField, Button } from "@material-ui/core";
+import { Employee } from '../services/employee';
+const employee = new Employee();
+
 
 export default class UpdateEmployee extends Component {
     constructor(props) {
@@ -29,6 +32,29 @@ export default class UpdateEmployee extends Component {
         this.setState({ [event.target.name]: event.target.value })
     }
 
+    componentDidMount(){
+        const empId = this.props.match.params.employeeId;
+        employee.getEmployee(empId)
+                .then((response)=>{
+                    console.log(response)
+                    if (response.data.success === true) {
+                        this.setState({
+                            firstName: response.data.firstName,
+                            lastName:response.data.lastName,
+                            gender:response.data.gender,
+                            salary:response.data.salary,
+                            department:response.data.department,
+                            emailId:response.data.emailId
+                        });
+                    }
+                    else {
+                        alert("employeee record not found!")
+                    }
+                }).catch((error) => {
+                    console.log(error.message);
+                });
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
         const empData = {
@@ -37,9 +63,14 @@ export default class UpdateEmployee extends Component {
             gender: this.state.gender,
             salary: this.state.salary,
             department: this.state.department,
-            emailId: this.state.emailId
+            emailId: this.state.emailId,
         };
-        console.log("empData=", empData)
+        const empId = this.props.match.params.employeeId;
+        employee.editEmployee(empData, empId).then((res) => { 
+            console.log(res.data.message);
+         }).catch(error=>{
+             console.log(error.message)
+         })
     }
     render() {
         const paperStyle = { padding: "30px 30px", width: 350, margin: "100px auto" };
