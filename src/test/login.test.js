@@ -7,13 +7,13 @@ import Adapter from "enzyme-adapter-react-16";
 configure({ adapter: new Adapter() });
 
 describe("Heading tags test", () => {
-  it("render title element", () => {
+  it("givenTitleElementByTestId_whenRendered_shouldContainProperTextContent", () => {
     const { getByTestId } = render(<Login />);
     const title = getByTestId("title");
     expect(title).toHaveTextContent("EMPLOYEE PAYROLL");
   });
 
-  it("render header h2", () => {
+  it("givenHeadingElementByTestId_whenRendered_shouldContainProperTextContent", () => {
     const { getByTestId } = render(<Login />);
     const header = getByTestId("signin");
     expect(header).toHaveTextContent("Sign In");
@@ -21,7 +21,7 @@ describe("Heading tags test", () => {
 });
 
 describe("Login Form test", () => {
-  test("check if form displays", () => {
+  test("givenFormElementByTestId_whenRendered_shouldBePresentInDocument", () => {
     const { getByTestId } = render(<Login />);
     const logo = getByTestId("logo");
     const form = getByTestId("form");
@@ -36,7 +36,7 @@ describe("Login Form test", () => {
     expect(password).toBeInTheDocument();
   });
 
-  test("check elements value", () => {
+  test("givenFormElementByTestId_whenRendered_shouldContainProperTextContent", () => {
     const { getByTestId } = render(<Login />);
     const email = getByTestId("email");
     const password = getByTestId("password");

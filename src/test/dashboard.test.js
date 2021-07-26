@@ -4,7 +4,7 @@ import "@testing-library/jest-dom/extend-expect";
 import {Dashboard} from '../components/dashboard'
 
 describe("Test For Dashboard Components",()=>{
-    it("dashboard header should contains all elements",()=>{
+    it("givenDashboardElementsByTestId_shouldContainsAllElementInHeader",()=>{
         const { getByTestId }  = render(<Dashboard />);
         const AppBar = getByTestId("appBar");
         const ToolBar = getByTestId("toolbar")
@@ -21,7 +21,7 @@ describe("Test For Dashboard Components",()=>{
         expect(logout).toBeInTheDocument();
     });
 
-    it("dashboard side bar should contains all elements",()=>{
+    it("givenDashboardElementsByTestId_shouldContainAllElementsInSideBar",()=>{
         const { getByTestId }  = render(<Dashboard />);
         const Drawer = getByTestId("drawer");
         const DrawerIcon = getByTestId("drawerIconButton"); 

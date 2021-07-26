@@ -5,13 +5,13 @@ import "@testing-library/jest-dom/extend-expect";
 
 describe("Heading tags test", () => {
 
-  it("render title element", () => {
+  it("givenElementByTestId_ShouldContainProperHeading", () => {
     const { getByTestId } = render(<AddEmployee />);
     const title = getByTestId("heading");
     expect(title).toHaveTextContent("Employee Details");
   });
 
-  it("Given wrong title content should give proper result", () => {
+  it("GivenWrongTitleContent_shouldGiveProperResult", () => {
     const { getByTestId } = render(<AddEmployee />);
     const title = getByTestId("heading");
     expect(title).not.toContain("Employee")
@@ -19,7 +19,7 @@ describe("Heading tags test", () => {
 });
 
 describe("Employee Details Registration Form test", () => {
-  test("check if form displays", () => {
+  test("givenElementsByTestId_WhenRendered_shouldContainAllElementsInDocument", () => {
     const { getByTestId } = render(<AddEmployee />);
     const form = getByTestId("form");
     const firstName = getByTestId("firstName");
@@ -40,7 +40,7 @@ describe("Employee Details Registration Form test", () => {
     expect(email).toBeInTheDocument();
   });
 
-  test("check form elements value", () => {
+  test("givenElementsByTestId_WhenRendered_shouldContainProperValuesInForm", () => {
     const { getByTestId } = render(<AddEmployee />);
     const firstName = getByTestId("firstName");
     const lastName = getByTestId("lastName");

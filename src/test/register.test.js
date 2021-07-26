@@ -3,22 +3,21 @@ import { Register } from "../pages/register";
 import { shallow, configure } from "enzyme";
 import "@testing-library/jest-dom/extend-expect";
 
-import Adapter from "enzyme-adapter-react-16";
-configure({ adapter: new Adapter() });
+
 
 describe("Heading tags test", () => {
-  it("render signup logo", () => {
-    const { getByTestId } = render(<Register />);
+  it("givenAvtarElementByTestId_whenRendered_shouldBePresentInDocument", () => {
+    const { getByTestId } = shallow(<Register />);
     const header = getByTestId("logo");
     expect(header).toBeInTheDocument();
   });
-  it("render title element", () => {
+  it("givenTitleElementByTestId_whenRendered_shouldContainProperTextContent", () => {
     const { getByTestId } = render(<Register />);
     const title = getByTestId("title");
     expect(title).toHaveTextContent("EMPLOYEE PAYROLL");
   });
 
-  it("render header h2", () => {
+  it("givenheadingTagElementByTestId_whenRendered_shouldContainProperTextContent", () => {
     const { getByTestId } = render(<Register />);
     const header = getByTestId("heading");
     expect(header).toHaveTextContent("Registration Form");
@@ -26,7 +25,7 @@ describe("Heading tags test", () => {
 });
 
 describe("Register Form test", () => {
-  test("check if form displays", () => {
+  test("givenElementsByTestId_WhenRendered_shouldContainAllElementsInDocument", () => {
     const { getByTestId } = render(<Register />);
     const firstName = getByTestId("firstName");
     const lastName = getByTestId("lastName");
@@ -45,7 +44,7 @@ describe("Register Form test", () => {
     expect(password).toBeInTheDocument();
   });
 
-  test("check elements value", () => {
+  test("givenElementsByTestId_WhenRendered_shouldContainProperValues", () => {
     const { getByTestId } = render(<Register />);
     const firstName = getByTestId("firstName");
     const lastName = getByTestId("lastName");
