@@ -1,186 +1,121 @@
-import React, { useState, useEffect } from "react";
-import { Grid, Paper, TextField, Button, FormLabel } from "@material-ui/core";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { Employee } from "../services/employee";
-import { useHistory, useParams } from "react-router-dom";
-import { FormControlLabel, Radio } from '@material-ui/core'
-import { RadioGroup } from 'formik-material-ui';
+import React, { Component } from "react";
+import { Grid, Paper, TextField, Button } from "@material-ui/core";
 
-const employee = new Employee();
+export default class UpdateEmployee extends Component {
+    constructor(props) {
+        super(props)
 
-export const UpdateEmployee = () => {
-    const history = useHistory();
-    const { employeeId } = useParams();
-    const paperStyle = { padding: "30px 30px", width: 350, margin: "100px auto" };
-    const headerStyle = { margin: 0 };
-    const btnstyle = { margin: "15px 0" };
-    const initialValues = {
-        firstName: '',
-        lastName: '',
-        gender: '',
-        salary: '',
-        department: '',
-        email: ''
-    };
-    const [empData, setEmployee] = useState(initialValues);
-    const { firstName, lastName, salary, department, emailId } = empData;
-    const onInputChange = e => {
-        setEmployee({...empData,
-            [e.target.name]: e.target.value,
-        });
-};
-useEffect(() => {
-    employee.getEmployee(employeeId).then((response) => {
-        setEmployee(response.data.data);
-    }).catch(error => {
-        console.log(error);
-    });
-}, []);
+        this.state = {
+            firstName: '',
+            lastName: '',
+            gender: '',
+            salary: '',
+            department: '',
+            emailId: '',
+            isError: {
+                firstName: '',
+                lastName: '',
+                gender: '',
+                salary: '',
+                department: '',
+                emailId: '',
+            }
+        }
+        this.onInputChange = this.onInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-const onSubmit = (event, props) => {
-    event.preventDefault();
-    employee
-        .editEmployee(empData, employeeId)
-        .then((response) => {
-            alert(response.data.message);
-            history.push("/dashboard/ListEmployees");
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    props.resetForm();
-};
-const validationSchema = Yup.object().shape({
-    firstName: Yup.string()
-        .min(3, "First Name is too short")
-        .matches(/^[a-zA-Z]{3,}$/, "First Name should contain characters")
-        .required("Required"),
-    lastName: Yup.string()
-        .min(3, "Last Name is too short")
-        .matches(/^[a-zA-Z]{3,}$/, "Last Name should contain characters")
-        .required("Required"),
-    salary: Yup.number()
-        .required("Required"),
-    department: Yup.string()
-        .matches(/^[a-zA-Z]{2,20}$/, "Min 2 Characters are required")
-        .required("Required"),
-    email: Yup.string().email("Enter valid email").required("Required"),
-});
-return (
-    <Grid>
-        <Paper elevation={20} style={paperStyle}>
-            <h2 style={headerStyle} data-testid="heading">
-                Employee Details
-            </h2>
-            <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={onSubmit}
-                enableReinitialize={true}
-                onChange={e => onInputChange(e)}
-            >
-                {(props) => (
-                    <Form data-testid="form" onChange={e => onInputChange(e)} >
-                        <Field
-                            as={TextField}
+    onInputChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value })
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const empData = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            gender: this.state.gender,
+            salary: this.state.salary,
+            department: this.state.department,
+            emailId: this.state.emailId
+        };
+        console.log("empData=", empData)
+    }
+    render() {
+        const paperStyle = { padding: "30px 30px", width: 350, margin: "100px auto" };
+        const headerStyle = { margin: 0 };
+        const btnstyle = { margin: "15px 0" };
+        return (
+            <Grid>
+                <Paper elevation={20} style={paperStyle} >
+                    <h2 style={headerStyle} data-testid="heading" className="title">
+                        Employee Details
+                    </h2><br />
+                    <form data-testid="form" onSubmit={this.handleSubmit}>
+                        <TextField
                             fullWidth
                             name="firstName"
                             label="First Name"
                             data-testid="firstName"
                             placeholder="Enter your first name"
-                            value={firstName}
-                            onKeyUp={e => onInputChange(e)}
-                            helperText={
-                                <ErrorMessage name="firstName">
-                                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                                </ErrorMessage>
-                            }
+                            value={this.state.firstName}
+                            onChange={this.onInputChange}
                         />
-                        <Field
-                            as={TextField}
+                        <TextField
                             fullWidth
                             style={{ padding: "5px" }}
                             name="lastName"
                             label="Last Name"
                             data-testid="lastName"
                             placeholder="Enter your last name"
-                            value={lastName}
-                            onKeyUp={e => onInputChange(e)}
-                            helperText={
-                                <ErrorMessage name="lastName">
-                                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                                </ErrorMessage>
-                            }
+                            value={this.state.lastName}
+                            onChange={this.onInputChange}
                         />
-                        <Field
-                            as={TextField}
+                        <TextField
+                            fullWidth
+                            name="gender"
+                            label="Gender"
+                            data-testid="gender"
+                            value={this.state.gender}
+                            onChange={this.onInputChange}
+                        />
+                        <TextField
                             fullWidth
                             name="salary"
                             label="Salary Amount"
                             data-testid="salary"
-                            value={salary}
-                            onKeyUp={e => onInputChange(e)}
-                            helperText={
-                                <ErrorMessage name="salary">
-                                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                                </ErrorMessage>
-                            }
+                            value={this.state.salary}
+                            onChange={this.onInputChange}
                         />
-                        <Field
-                            as={TextField}
+                        <TextField
                             fullWidth
                             name="department"
                             label="Department"
                             data-testid="department"
-                            value={department}
-                            onKeyUp={e => onInputChange(e)}
-                            helperText={
-                                <ErrorMessage name="department">
-                                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                                </ErrorMessage>
-                            }
+                            value={this.state.department}
+                            onChange={this.onInputChange}
                         />
-                        <Field
-                            as={TextField}
+                        <TextField
                             fullWidth
                             name="email"
                             label="Email"
                             data-testid="email"
                             placeholder="Enter your email id"
-                            value={emailId}
-                            onKeyUp={e => onInputChange(e)} 
-                            helperText={
-                                <ErrorMessage name="email">
-                                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                                </ErrorMessage>
-                            }
+                            value={this.state.emailId}
+                            onChange={this.onInputChange}
                         />
-                        <Field component={RadioGroup} row="true" name="gender">
-                            <FormLabel style={{ padding: "12px", align: 'left' }}> Gender</FormLabel>
-                            <FormControlLabel
-                                value="Male"
-                                control={<Radio />}
-                                label="Male"
-                            />
-                            <FormControlLabel
-                                value="Female"
-                                control={<Radio />}
-                                label="Female"
-                            />
-                        </Field>
                         <Button
                             type="submit"
                             variant="contained"
                             color="primary"
                             style={btnstyle}
                             data-testid="submitButton"
-                        >Update
+                        >
+                            Update
                         </Button>
-                    </Form>
-                )}
-            </Formik>
-        </Paper>
-    </Grid>
-);
-};
+                    </form>
+                </Paper>
+            </Grid>
+        )
+    }
+}

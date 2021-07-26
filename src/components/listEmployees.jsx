@@ -76,10 +76,10 @@ export const ListEmployees = () => {
   }
 
   return (
-    <TableContainer component={Paper} style={tableStyle}>
-      <Table className={classes.table} aria-label="customized table">
+    <TableContainer component={Paper} style={tableStyle} data-testid="tableConatiner">
+      <Table className={classes.table} aria-label="customized table" data-testid="table">
         <TableHead>
-          <TableRow>
+          <TableRow data-testid="tableRowHeader">
             <StyledTableCell>First Name</StyledTableCell>
             <StyledTableCell >Last Name</StyledTableCell>
             <StyledTableCell >Gender</StyledTableCell>
@@ -89,7 +89,7 @@ export const ListEmployees = () => {
             <StyledTableCell >Actions</StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody data-testid="tableBody">
           {employees.map((employee) => (
             <StyledTableRow >
               <StyledTableCell component="th" scope="row">
