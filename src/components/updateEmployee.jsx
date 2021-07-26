@@ -3,7 +3,6 @@ import { Grid, Paper, TextField, Button } from "@material-ui/core";
 import { Employee } from '../services/employee';
 const employee = new Employee();
 
-
 export default class UpdateEmployee extends Component {
     constructor(props) {
         super(props)
@@ -67,9 +66,10 @@ export default class UpdateEmployee extends Component {
         };
         const empId = this.props.match.params.employeeId;
         employee.editEmployee(empData, empId).then((res) => {
-            console.log(res.data.message);
+            alert(res.data.message);
+            this.props.history.push('/dashboard/listEmployees');
         }).catch(error => {
-            console.log(error.message)
+            console.log(error.message);
         })
     }
     render() {
@@ -91,6 +91,7 @@ export default class UpdateEmployee extends Component {
                             placeholder="Enter your first name"
                             value={this.state.firstName}
                             onChange={this.onInputChange}
+                           
                         />
                         <TextField
                             fullWidth
@@ -101,6 +102,7 @@ export default class UpdateEmployee extends Component {
                             placeholder="Enter your last name"
                             value={this.state.lastName}
                             onChange={this.onInputChange}
+                            
                         />
                         <TextField
                             fullWidth
@@ -109,6 +111,7 @@ export default class UpdateEmployee extends Component {
                             data-testid="gender"
                             value={this.state.gender}
                             onChange={this.onInputChange}
+                           
                         />
                         <TextField
                             fullWidth
@@ -128,7 +131,7 @@ export default class UpdateEmployee extends Component {
                         />
                         <TextField
                             fullWidth
-                            name="email"
+                            name="emailId"
                             label="Email"
                             data-testid="email"
                             placeholder="Enter your email id"
