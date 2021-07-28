@@ -25,26 +25,28 @@ export default class UpdateEmployee extends Component {
     }
 
     componentDidMount() {
-        const empId = this.props.match.params.employeeId;
-        employee.getEmployee(empId)
-            .then((response) => {
-                const result = response.data.data;
-                if (response.data.success === true) {
-                    this.setState({
-                        firstName: result.firstName,
-                        lastName: result.lastName,
-                        gender: result.gender,
-                        salary: result.salary,
-                        department: result.department,
-                        emailId: result.emailId
-                    });
-                }
-                else {
-                    alert("employeee record not found!")
-                }
-            }).catch((error) => {
-                console.log(error.message);
-            });
+        if (this.props.match && this.props.match.params.employeeId) {
+            const empId = this.props.match.params.employeeId;
+            employee.getEmployee(empId)
+                .then((response) => {
+                    const result = response.data.data;
+                    if (response.data.success === true) {
+                        this.setState({
+                            firstName: result.firstName,
+                            lastName: result.lastName,
+                            gender: result.gender,
+                            salary: result.salary,
+                            department: result.department,
+                            emailId: result.emailId
+                        });
+                    }
+                    else {
+                        alert("employeee record not found!")
+                    }
+                }).catch((error) => {
+                    console.log(error.message);
+                });
+        }
     }
 
     handleSubmit = (event) => {
@@ -57,13 +59,15 @@ export default class UpdateEmployee extends Component {
             department: this.state.department,
             emailId: this.state.emailId,
         };
-        const empId = this.props.match.params.employeeId;
-        employee.editEmployee(empData, empId).then((res) => {
-            alert(res.data.message);
-            this.props.history.push('/dashboard/listEmployees');
-        }).catch(error => {
-            console.log(error.message);
-        })
+        if (this.props.match && this.props.match.params.postID) {
+            const empId = this.props.match.params.employeeId;
+            employee.editEmployee(empData, empId).then((res) => {
+                alert(res.data.message);
+                this.props.history.push('/dashboard/listEmployees');
+            }).catch(error => {
+                console.log(error.message);
+            })
+        }
     }
     render() {
         const paperStyle = { padding: "30px 30px", width: 350, margin: "100px auto" };
@@ -72,7 +76,7 @@ export default class UpdateEmployee extends Component {
         return (
             <Grid>
                 <Paper elevation={20} style={paperStyle} >
-                    <h2 style={headerStyle} data-testid="heading" className="title">
+                    <h2 style={headerStyle} id="heading" className="title">
                         Employee Details
                     </h2><br />
                     <ValidatorForm

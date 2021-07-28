@@ -8,7 +8,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Employee } from '../services/employee'
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Link } from 'react-router-dom'
@@ -101,7 +100,6 @@ export const ListEmployees = () => {
               <StyledTableCell >{employee.department}</StyledTableCell>
               <StyledTableCell >{employee.emailId}</StyledTableCell>
               <StyledTableCell >
-                <Link to={`/dashboard/viewEmployee/${employee._id}`}><VisibilityIcon style={{ fill: '#000000' }} /></Link>&nbsp;&nbsp;&nbsp;
                 <Link to={`/dashboard/updateEmployee/${employee._id}`}><EditIcon style={{ fill: '#000000' }} /></Link>&nbsp;&nbsp;&nbsp;
                 <Link onClick={() => { deleteEmployee(employee._id) }}><DeleteIcon style={{ fill: '#000000' }} /></Link>
               </StyledTableCell>
