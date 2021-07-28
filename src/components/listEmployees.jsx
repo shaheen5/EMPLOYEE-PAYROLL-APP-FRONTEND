@@ -75,7 +75,7 @@ export const ListEmployees = () => {
   }
 
   return (
-    <TableContainer component={Paper} style={tableStyle} data-testid="tableConatiner">
+    <TableContainer component={Paper} style={tableStyle} data-testid="tableContainer">
       <Table className={classes.table} aria-label="customized table" data-testid="table">
         <TableHead>
           <TableRow data-testid="tableRowHeader">

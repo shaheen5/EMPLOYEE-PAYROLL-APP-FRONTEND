@@ -36,3 +36,39 @@ describe("Test For Employee Details Table", () => {
     });
   });
   
+  describe("Negative Test For Table Elements",()=>{
+    test("givenWrongRowElementsByTestId_whenRendered_shouldNotBePresentInDocument", () => {
+      const { queryByTestId } = render(<ListEmployees />);
+      const firstName = queryByTestId("Name");
+      const lastName = queryByTestId("last");
+      const salary = queryByTestId("sal");
+      const department = queryByTestId("dept");
+      const email = queryByTestId("emai");
+      const gender = queryByTestId("gen");
+  
+      expect(firstName).not.toBeInTheDocument();
+      expect(lastName).not.toBeInTheDocument();
+      expect(salary).not.toBeInTheDocument();
+      expect(department).not.toBeInTheDocument();
+      expect(gender).not.toBeInTheDocument();
+      expect(email).not.toBeInTheDocument();
+    });
+
+    it('givenTableHeadingDataByTestId_whenRendered_shouldNotBeNull', () => {
+      const { getByTestId } = render(<ListEmployees />);
+      const firstname = getByTestId('firstName');
+      const lastname = getByTestId('lastName');
+      const email = getByTestId('email');
+      const department = getByTestId("department");
+      const salary = getByTestId("salary");
+      const gender = getByTestId("gender");
+  
+  
+      expect(firstname).not.toBeNull();
+      expect(lastname).not.toBeNull();
+      expect(email).not.toBeNull();
+      expect(department).not.toBeNull();
+      expect(salary).not.toBeNull();
+      expect(gender).not.toBeNull();
+    })
+  })

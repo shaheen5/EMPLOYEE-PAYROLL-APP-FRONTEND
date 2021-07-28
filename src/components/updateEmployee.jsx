@@ -59,7 +59,7 @@ export default class UpdateEmployee extends Component {
             department: this.state.department,
             emailId: this.state.emailId,
         };
-        if (this.props.match && this.props.match.params.postID) {
+        if (this.props.match && this.props.match.params.employeeId) {
             const empId = this.props.match.params.employeeId;
             employee.editEmployee(empData, empId).then((res) => {
                 alert(res.data.message);

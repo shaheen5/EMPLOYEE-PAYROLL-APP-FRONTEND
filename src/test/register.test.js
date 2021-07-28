@@ -1,13 +1,12 @@
 import { render } from "@testing-library/react";
 import { Register } from "../pages/register";
-import { shallow, configure } from "enzyme";
 import "@testing-library/jest-dom/extend-expect";
 
 
 
 describe("Heading tags test", () => {
   it("givenAvtarElementByTestId_whenRendered_shouldBePresentInDocument", () => {
-    const { getByTestId } = shallow(<Register />);
+    const { getByTestId } = render(<Register />);
     const header = getByTestId("logo");
     expect(header).toBeInTheDocument();
   });
@@ -56,4 +55,42 @@ describe("Register Form test", () => {
     expect(email).toHaveTextContent("Email");
     expect(password).toHaveTextContent("Password");
   });
+});
+
+describe('Negative Test Form Component', () => {
+  it('giveWrongnDataTestId_whenVisitedRegisterFormComponent_shouldNotRenderProperly', (done) => {
+      const { queryByTestId } = render(<Register />);
+      const form = queryByTestId('for');
+      const firstname = queryByTestId('irstname');
+      const lastname = queryByTestId('astname');
+      const email = queryByTestId('emil');
+      const password = queryByTestId('assword');
+      const button = queryByTestId('butto')
+      const text = queryByTestId('typogrphy');
+
+      expect(form).not.toBeInTheDocument();
+      expect(firstname).not.toBeInTheDocument();
+      expect(lastname).not.toBeInTheDocument();
+      expect(email).not.toBeInTheDocument();
+      expect(password).not.toBeInTheDocument();
+      expect(button).not.toBeInTheDocument();
+      expect(text).not.toBeInTheDocument();
+      done()
+  })
+
+  it('givenDataTestId_whenVisitedRegisterFormComponent_shouldNotBeNull', () => {
+    const { getByTestId } = render(<Register />);
+    const firstName = getByTestId("firstName");
+    const lastName = getByTestId("lastName");
+    const email = getByTestId("email");
+    const password = getByTestId("password");
+    const button = getByTestId("submitButton");
+
+      expect(firstName).not.toBeNull();
+      expect(lastName).not.toBeNull();
+      expect(email).not.toBeNull();
+      expect(password).not.toBeNull();
+      expect(button).not.toBeNull();
+    
+  })
 });
