@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import '@testing-library/jest-dom'
-import  UpdateEmployee from "../components/updateEmployee";
+import UpdateEmployee from "../components/updateEmployee";
 import "@testing-library/jest-dom/extend-expect";
 import { shallow } from 'enzyme';
 import Enzyme from 'enzyme';
@@ -17,11 +17,12 @@ describe("Heading tags test", () => {
 
   it("GivenWrongTitleContent_shouldGiveProperResult", () => {
     const component = shallow(<UpdateEmployee />)
-        expect(component.find('#heading').text()).not.toEqual('ABC');
+    expect(component.find('#heading').text()).not.toEqual('ABC');
   });
 });
 
 describe("Employee Details Update Form test", () => {
+
   test("givenElementsByTestId_WhenRendered_shouldContainAllElementsInDocument", () => {
     const { getByTestId } = render(<UpdateEmployee />);
     const form = getByTestId("form");
@@ -62,5 +63,36 @@ describe("Employee Details Update Form test", () => {
   });
 });
 
+describe('Negative Test For Update Form Component', () => {
+  it('giveWrongnDataTestId_whenRendered_shouldNotRenderElements', () => {
+    const { queryByTestId } = render(<UpdateEmployee />);
+    const form = queryByTestId('for');
+    const firstname = queryByTestId('irstname');
+    const lastname = queryByTestId('astname');
+    const email = queryByTestId('emil');
 
 
+    expect(form).not.toBeInTheDocument();
+    expect(firstname).not.toBeInTheDocument();
+    expect(lastname).not.toBeInTheDocument();
+    expect(email).not.toBeInTheDocument();
+  });
+
+  it('givenDataTestId_whenRendered_shouldNotBeNull', () => {
+    const { getByTestId } = render(<UpdateEmployee />);
+    const firstname = getByTestId('firstName');
+    const lastname = getByTestId('lastName');
+    const email = getByTestId('email');
+    const department = getByTestId("department");
+    const salary = getByTestId("salary");
+    const gender = getByTestId("gender");
+
+
+    expect(firstname).not.toBeNull();
+    expect(lastname).not.toBeNull();
+    expect(email).not.toBeNull();
+    expect(department).not.toBeNull();
+    expect(salary).not.toBeNull();
+    expect(gender).not.toBeNull();
+  })
+});
