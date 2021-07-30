@@ -13,6 +13,7 @@ D:\MERN_CUSTOM_TECH\employee-payroll-frontend\.env
 /build
 
 # misc
+.env
 .DS_Store
 .env.local
 .env.development.local
