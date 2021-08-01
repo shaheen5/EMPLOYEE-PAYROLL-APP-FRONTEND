@@ -10,6 +10,8 @@ import {
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { User } from "../services/user";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Link, useHistory } from "react-router-dom";
 const user = new User();
 
@@ -41,8 +43,10 @@ export const Register = () => {
     user
       .userRegistration(userCredentials)
       .then((response) => {
-        alert(response.data.message);
-        history.push("/login");
+        toast(response.data.message);
+        setTimeout(() => {
+          history.push("/login");
+        }, 3000);
       })
       .catch((error) => {
         console.log(error.message);
@@ -155,12 +159,20 @@ export const Register = () => {
                 Sign up
               </Button>
               <Typography>
-                {" "}
                 Already Registered User ?
                 <Link data-testid="link" to="/login">
                   Log In
                 </Link>
               </Typography>
+              <ToastContainer
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover />
             </Form>
           )}
         </Formik>

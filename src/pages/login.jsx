@@ -11,6 +11,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { User } from "../services/user";
 const user = new User();
 
@@ -37,8 +39,11 @@ export const Login = () => {
     user
       .userLogin(loginDetails)
       .then((response) => {
+        toast.success("Login Successfull");
         localStorage.setItem("token", response.data.data);
-        history.push("/dashboard");
+        setTimeout(() => {
+          history.push("/dashboard");
+        }, 3000);
       })
       .catch((error) => {
         console.log(error.message);
@@ -108,6 +113,15 @@ export const Login = () => {
             <Typography>
               Do you have an account ?<Link to="/registerUser">Sign Up</Link>
             </Typography>
+            <ToastContainer
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover />
           </Form>
         </Formik>
       </Paper>

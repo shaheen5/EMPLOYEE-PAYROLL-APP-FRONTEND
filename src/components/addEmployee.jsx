@@ -6,6 +6,8 @@ import { Employee } from "../services/employee";
 import { useHistory } from "react-router-dom";
 import { FormControlLabel, Radio } from '@material-ui/core'
 import { RadioGroup } from 'formik-material-ui';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const employee = new Employee();
 
@@ -35,15 +37,17 @@ export const AddEmployee = () => {
     employee
       .createEmployee(employeeDetails)
       .then((response) => {
-        alert(response.data.message);
-        history.push("/dashboard/ListEmployees");
+        toast.success(response.data.message);
+        setTimeout(()=>{
+          history.push("/dashboard/ListEmployees");
+        },3000);
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(error.message);
       });
     props.resetForm();
   };
-  
+
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
       .min(3, "First Name is too short")
@@ -138,7 +142,7 @@ export const AddEmployee = () => {
                 }
               />
               <Field component={RadioGroup} row="true" name="gender" >
-                <FormLabel style={{ padding: "15px"}} data-testid="gender"> Gender</FormLabel>
+                <FormLabel style={{ padding: "15px" }} data-testid="gender"> Gender</FormLabel>
                 <FormControlLabel
                   value="Male"
                   control={<Radio />}
@@ -159,6 +163,15 @@ export const AddEmployee = () => {
               >
                 Submit
               </Button>
+              <ToastContainer position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover />
             </Form>
           )}
         </Formik>
