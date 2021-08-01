@@ -20,7 +20,7 @@ export const Login = () => {
     padding: 20,
     height: "70vh",
     width: 280,
-    margin: "20px auto",
+    margin: "30px auto",
   };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const btnstyle = { margin: "25px 0" };
@@ -106,7 +106,6 @@ export const Login = () => {
               Sign in
             </Button>
             <Typography>
-              {" "}
               Do you have an account ?<Link to="/registerUser">Sign Up</Link>
             </Typography>
           </Form>

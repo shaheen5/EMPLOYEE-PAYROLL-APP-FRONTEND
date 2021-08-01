@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Grid, Paper, Button } from "@material-ui/core";
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import { Employee } from '../services/employee';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 const employee = new Employee();
@@ -15,10 +18,16 @@ export default class UpdateEmployee extends Component {
             salary: '',
             department: '',
             emailId: '',
+            snackbaropen: false,
+            snackbarmsg: ''
         }
         this.onInputChange = this.onInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.snackbarClose = this.snackbarClose.bind(this);
     }
+    snackbarClose = (event) => {
+        this.setState({ snackbaropen: false });
+    };
 
     onInputChange = (event) => {
         this.setState({ [event.target.name]: event.target.value })
@@ -62,10 +71,12 @@ export default class UpdateEmployee extends Component {
         if (this.props.match && this.props.match.params.employeeId) {
             const empId = this.props.match.params.employeeId;
             employee.editEmployee(empData, empId).then((res) => {
-                alert(res.data.message);
-                this.props.history.push('/dashboard/listEmployees');
+                this.setState({ snackbaropen: true, snackbarmsg: res.data.message })
+                setTimeout(() => {
+                    this.props.history.push('/dashboard/listEmployees');
+                }, 3000);
             }).catch(error => {
-                console.log(error.message);
+                this.setState({ snackbaropen: true, snackbarmsg: 'Update Failed!' })
             })
         }
     }
@@ -79,85 +90,108 @@ export default class UpdateEmployee extends Component {
                     <h2 style={headerStyle} id="heading" className="title">
                         Employee Details
                     </h2><br />
-                    <ValidatorForm
-                        ref="form"
-                        data-testid="form"
-                        onSubmit={this.handleSubmit}
-                    >
-                        <TextValidator
-                            fullWidth
-                            name="firstName"
-                            label="First Name"
-                            data-testid="firstName"
-                            placeholder="Enter your first name"
-                            value={this.state.firstName}
-                            onChange={this.onInputChange}
-                            validators={['required', 'matchRegexp:^[a-zA-Z]{3,}$']}
-                            errorMessages={['this field is required', 'First Name should contain min 3 characters']}
-                        />
-                        <TextValidator
-                            fullWidth
-                            name="lastName"
-                            label="Last Name"
-                            data-testid="lastName"
-                            placeholder="Enter your last name"
-                            value={this.state.lastName}
-                            onChange={this.onInputChange}
-                            validators={['required', 'matchRegexp:^[a-zA-Z]{3,}$']}
-                            errorMessages={['this field is required', 'Last Name should contain min 3 characters']}
-
-                        />
-                        <TextValidator
-                            fullWidth
-                            name="gender"
-                            label="Gender"
-                            data-testid="gender"
-                            value={this.state.gender}
-                            onChange={this.onInputChange}
-                            validators={['required', 'matchRegexp:^[a-zA-Z]']}
-                            errorMessages={['this field is required', 'Enter valid gender']}
-                        />
-                        <TextValidator
-                            fullWidth
-                            name="salary"
-                            label="Salary Amount"
-                            data-testid="salary"
-                            value={this.state.salary}
-                            onChange={this.onInputChange}
-                            validators={['required', 'matchRegexp:^[0-9]']}
-                            errorMessages={['this field is required', 'Enter valid amount']}
-                        />
-                        <TextValidator
-                            fullWidth
-                            name="department"
-                            label="Department"
-                            data-testid="department"
-                            value={this.state.department}
-                            onChange={this.onInputChange}
-                            validators={['required', 'matchRegexp:^[a-zA-Z]{2,}$']}
-                            errorMessages={['this field is required', 'Department should contain min 2 characters']}
-                        />
-                        <TextValidator
-                            fullWidth
-                            name="emailId"
-                            label="Email"
-                            data-testid="email"
-                            placeholder="Enter your email id"
-                            value={this.state.emailId}
-                            onChange={this.onInputChange}
-                            validators={['required', 'isEmail']}
-                            errorMessages={['this field is required', 'Invalid Email']}
-                        />
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            style={btnstyle}
-                            data-testid="submitButton"
+                    <div>
+                        <ValidatorForm
+                            ref="form"
+                            data-testid="form"
+                            onSubmit={this.handleSubmit}
                         >
-                            Update
-                        </Button>
-                    </ValidatorForm>
+                            <TextValidator
+                                fullWidth
+                                name="firstName"
+                                label="First Name"
+                                data-testid="firstName"
+                                placeholder="Enter your first name"
+                                value={this.state.firstName}
+                                onChange={this.onInputChange}
+                                validators={['required', 'matchRegexp:^[a-zA-Z]{3,}$']}
+                                errorMessages={['this field is required', 'First Name should contain min 3 characters']}
+                            />
+                            <TextValidator
+                                fullWidth
+                                name="lastName"
+                                label="Last Name"
+                                data-testid="lastName"
+                                placeholder="Enter your last name"
+                                value={this.state.lastName}
+                                onChange={this.onInputChange}
+                                validators={['required', 'matchRegexp:^[a-zA-Z]{3,}$']}
+                                errorMessages={['this field is required', 'Last Name should contain min 3 characters']}
+
+                            />
+                            <TextValidator
+                                fullWidth
+                                name="gender"
+                                label="Gender"
+                                data-testid="gender"
+                                value={this.state.gender}
+                                onChange={this.onInputChange}
+                                validators={['required', 'matchRegexp:^[a-zA-Z]']}
+                                errorMessages={['this field is required', 'Enter valid gender']}
+                            />
+                            <TextValidator
+                                fullWidth
+                                name="salary"
+                                label="Salary Amount"
+                                data-testid="salary"
+                                value={this.state.salary}
+                                onChange={this.onInputChange}
+                                validators={['required', 'matchRegexp:^[0-9]']}
+                                errorMessages={['this field is required', 'Enter valid amount']}
+                            />
+                            <TextValidator
+                                fullWidth
+                                name="department"
+                                label="Department"
+                                data-testid="department"
+                                value={this.state.department}
+                                onChange={this.onInputChange}
+                                validators={['required', 'matchRegexp:^[a-zA-Z]{2,}$']}
+                                errorMessages={['this field is required', 'Department should contain min 2 characters']}
+                            />
+                            <TextValidator
+                                fullWidth
+                                name="emailId"
+                                label="Email"
+                                data-testid="email"
+                                placeholder="Enter your email id"
+                                value={this.state.emailId}
+                                onChange={this.onInputChange}
+                                validators={['required', 'isEmail']}
+                                errorMessages={['this field is required', 'Invalid Email']}
+                            />
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                style={btnstyle}
+                                data-testid="submitButton"
+                            >
+                                Update
+                            </Button>
+                        </ValidatorForm>
+                        <Snackbar
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                            }}
+                            open={this.state.snackbaropen}
+                            autoHideDuration={8000}
+                            onClose={this.snackbarClose}
+                            message={this.state.snackbarmsg}
+                            action={[
+                                <React.Fragment background="green">
+                                    <Button color="secondary" size="small" onClick={this.snackbarClose}>
+                                        UNDO
+                                    </Button>
+                                    <IconButton size="small" aria-label="close" color="inherit" onClick={this.snackbarClose}>
+                                        <CloseIcon fontSize="small" />
+                                    </IconButton>
+                                </React.Fragment>
+
+                            ]}
+                        />
+                    </div>
                 </Paper>
             </Grid>
         )
