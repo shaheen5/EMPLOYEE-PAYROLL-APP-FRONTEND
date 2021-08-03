@@ -18,10 +18,12 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { Employee } from '../services/employee';
+import { withRouter } from "react-router-dom";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { toast } from "react-toastify";
 const employee = new Employee();
 
-export default class UpdateEmployee extends Component {
+class UpdateEmployee extends Component {
     constructor(props) {
         super(props)
 
@@ -69,6 +71,8 @@ export default class UpdateEmployee extends Component {
                 }).catch((error) => {
                     console.log(error.message);
                 });
+        }else{
+            toast.error("Some error occurred !");
         }
     }
 
@@ -82,7 +86,7 @@ export default class UpdateEmployee extends Component {
             department: this.state.department,
             emailId: this.state.emailId,
         };
-        if (this.props.match.params.employeeId) {
+        if (this.props.match && this.props.match.params.employeeId) {
             const empId = this.props.match.params.employeeId;
             employee.editEmployee(empData, empId).then((res) => {
                 if (res.data.success === true) {
@@ -98,7 +102,7 @@ export default class UpdateEmployee extends Component {
                 this.setState({ snackbaropen: true, snackbarmsg: 'Update Failed!' })
             })
         }
-        this.state = ({
+        this.setState({
             firstName: '',
             lastName: '',
             gender: '',
@@ -224,3 +228,4 @@ export default class UpdateEmployee extends Component {
         )
     }
 }
+export default withRouter(UpdateEmployee);
