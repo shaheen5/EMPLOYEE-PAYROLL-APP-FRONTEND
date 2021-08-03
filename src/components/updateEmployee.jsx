@@ -98,7 +98,14 @@ export default class UpdateEmployee extends Component {
                 this.setState({ snackbaropen: true, snackbarmsg: 'Update Failed!' })
             })
         }
-        props.resetForm();
+        this.state = ({
+            firstName: '',
+            lastName: '',
+            gender: '',
+            salary: '',
+            department: '',
+            emailId: ''
+        });
     }
     render() {
         const paperStyle = { padding: "30px 30px", width: 350, margin: "100px auto" };
