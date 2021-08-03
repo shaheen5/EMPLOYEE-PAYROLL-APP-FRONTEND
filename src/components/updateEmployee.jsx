@@ -82,14 +82,14 @@ export default class UpdateEmployee extends Component {
             department: this.state.department,
             emailId: this.state.emailId,
         };
-        if (this.props.match && this.props.match.params.employeeId) {
+        if (this.props.match.params.employeeId) {
             const empId = this.props.match.params.employeeId;
             employee.editEmployee(empData, empId).then((res) => {
                 if (res.data.success === true) {
                     this.setState({ snackbaropen: true, snackbarmsg: res.data.message })
                     setTimeout(() => {
                         this.props.history.push('/dashboard/listEmployees');
-                    }, 3000);
+                    }, 2000);
                 }
                 else {
                     this.setState({ snackbaropen: true, snackbarmsg: 'Some Error Occured' })
@@ -98,6 +98,7 @@ export default class UpdateEmployee extends Component {
                 this.setState({ snackbaropen: true, snackbarmsg: 'Update Failed!' })
             })
         }
+        props.resetForm();
     }
     render() {
         const paperStyle = { padding: "30px 30px", width: 350, margin: "100px auto" };
@@ -195,7 +196,7 @@ export default class UpdateEmployee extends Component {
                                 horizontal: 'center',
                             }}
                             open={this.state.snackbaropen}
-                            autoHideDuration={8000}
+                            autoHideDuration={2000}
                             onClose={this.snackbarClose}
                             message={this.state.snackbarmsg}
                             action={[
