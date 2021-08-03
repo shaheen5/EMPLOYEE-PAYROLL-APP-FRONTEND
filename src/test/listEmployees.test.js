@@ -1,3 +1,17 @@
+/** ******************************************************************************
+ *  Execution    : 1. Default node with npm   cmd> npm start
+ *
+ * Purpose      : Test List Employees Component
+ *
+ * @description  :modules need to be required before execution of this file
+ *
+ * @file        : test/listEmployees.test.js
+ * @overview    : Testing using jest and enzyme
+ * @module      : Contains code to test table elements in list component 
+ * @author      : Shaheen M.
+ * @version     : 1.0
+ * @since       : 19-07-2021
+ ********************************************************************************/
 import { render } from "@testing-library/react";
 import { ListEmployees } from "../components/listEmployees";
 import "@testing-library/jest-dom/extend-expect";

@@ -1,3 +1,17 @@
+/** ******************************************************************************
+ *  Execution    : 1. Default node with npm   cmd> npm start
+ *
+ * Purpose      : creates UI for user dashboard 
+ *
+ * @description  :modules need to be required before execution of this file
+ *
+ * @file        : component/dashboard.jsx
+ * @overview    : dashboard component with add,delete,update,list links
+ * @module      : Contains functional component to return dashboard UI
+ * @author      : Shaheen M.
+ * @version     : 1.0
+ * @since       : 19-07-2021
+ ********************************************************************************/
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import "../scss/dashboard.scss";
@@ -22,6 +36,7 @@ import Button from "@material-ui/core/Button";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import auth from '../services/auth';
 
 const drawerWidth = 240;
 
@@ -102,7 +117,9 @@ export function Dashboard() {
 
   const handleLogout = () => {
     localStorage.clear();
-    history.push("/login");
+    auth.logout(() => {
+      history.push("/login");
+    });
   };
 
   return (
@@ -124,7 +141,7 @@ export function Dashboard() {
             data-testid="iconButton"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
-            <MenuIcon  data-testid="menuIcon"/>
+            <MenuIcon data-testid="menuIcon" />
           </IconButton>
           <Typography variant="h6" data-testid="header">EMPLOYEE PAYROLL</Typography>
           <Button
@@ -157,7 +174,7 @@ export function Dashboard() {
             )}
           </IconButton>
         </div>
-        <Divider data-testid="divider"/>
+        <Divider data-testid="divider" />
         <List>
           <ListItem
             button
@@ -166,7 +183,7 @@ export function Dashboard() {
             data-testid="listElements"
             component={Link}
           >
-            <ListItemIcon>{<ViewListIcon data-testid="listElementIcon"/>}</ListItemIcon>
+            <ListItemIcon>{<ViewListIcon data-testid="listElementIcon" />}</ListItemIcon>
             <ListItemText primary="List" />
           </ListItem>
           <ListItem
@@ -175,15 +192,15 @@ export function Dashboard() {
             to="/dashboard/addEmployee"
             component={Link}
           >
-            <ListItemIcon>{<PersonAddIcon data-testid="addElementIcon"/>}</ListItemIcon>
+            <ListItemIcon>{<PersonAddIcon data-testid="addElementIcon" />}</ListItemIcon>
             <ListItemText primary="Add" />
           </ListItem>
           <ListItem button key="Edit">
-            <ListItemIcon>{<EditIcon data-testid="editElementIcon"/>}</ListItemIcon>
+            <ListItemIcon>{<EditIcon data-testid="editElementIcon" />}</ListItemIcon>
             <ListItemText primary="Edit" />
           </ListItem>
           <ListItem button key="Delete">
-            <ListItemIcon>{<DeleteIcon data-testid="deleteElementIcon"/>}</ListItemIcon>
+            <ListItemIcon>{<DeleteIcon data-testid="deleteElementIcon" />}</ListItemIcon>
             <ListItemText primary="Delete" />
           </ListItem>
         </List>

@@ -1,3 +1,17 @@
+/** ******************************************************************************
+ *  Execution    : 1. Default node with npm   cmd> npm start
+ *
+ * Purpose      : create Update Employee Details Form UI
+ *
+ * @description  :modules need to be required before execution of this file
+ *
+ * @file        : component/updateEmployee.jsx
+ * @overview    : update employee component
+ * @module      : Contains class component to return update Form UI
+ * @author      : Shaheen M.
+ * @version     : 1.0
+ * @since       : 19-07-2021
+ ********************************************************************************/
 import React, { Component } from "react";
 import { Grid, Paper, Button } from "@material-ui/core";
 import Snackbar from '@material-ui/core/Snackbar';
@@ -71,10 +85,15 @@ export default class UpdateEmployee extends Component {
         if (this.props.match && this.props.match.params.employeeId) {
             const empId = this.props.match.params.employeeId;
             employee.editEmployee(empData, empId).then((res) => {
-                this.setState({ snackbaropen: true, snackbarmsg: res.data.message })
-                setTimeout(() => {
-                    this.props.history.push('/dashboard/listEmployees');
-                }, 3000);
+                if (res.data.success === true) {
+                    this.setState({ snackbaropen: true, snackbarmsg: res.data.message })
+                    setTimeout(() => {
+                        this.props.history.push('/dashboard/listEmployees');
+                    }, 3000);
+                }
+                else {
+                    this.setState({ snackbaropen: true, snackbarmsg: 'Some Error Occured' })
+                }
             }).catch(error => {
                 this.setState({ snackbaropen: true, snackbarmsg: 'Update Failed!' })
             })
@@ -180,7 +199,7 @@ export default class UpdateEmployee extends Component {
                             onClose={this.snackbarClose}
                             message={this.state.snackbarmsg}
                             action={[
-                                <React.Fragment background="green">
+                                <React.Fragment>
                                     <Button color="secondary" size="small" onClick={this.snackbarClose}>
                                         UNDO
                                     </Button>

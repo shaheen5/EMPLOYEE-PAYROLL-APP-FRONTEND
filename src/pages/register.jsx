@@ -1,3 +1,17 @@
+/** ******************************************************************************
+ *  Execution    : 1. Default node with npm   cmd> npm start
+ *
+ * Purpose      : create register Page user interface
+ *
+ * @description  :modules need to be required before execution of this file
+ *
+ * @file        : pages/register.jsx
+ * @overview    : login page component
+ * @module      : Contains functional component to return register Form UI
+ * @author      : Shaheen M.
+ * @version     : 1.0
+ * @since       : 19-07-2021
+ ******************************************************************************* */
 import React from "react";
 import {
   Grid,
@@ -43,13 +57,19 @@ export const Register = () => {
     user
       .userRegistration(userCredentials)
       .then((response) => {
-        toast(response.data.message);
-        setTimeout(() => {
-          history.push("/login");
-        }, 3000);
+        if (response.data.success === true) {
+          toast(response.data.message);
+          setTimeout(() => {
+            history.push("/login");
+          }, 3000);
+        }
+        else {
+          toast.error("Some error occured !");
+        }
+
       })
       .catch((error) => {
-        console.log(error.message);
+        toast.error("user registration failed !");
       });
     props.resetForm();
   };

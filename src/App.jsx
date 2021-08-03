@@ -1,6 +1,5 @@
 /** ******************************************************************************
- *  Execution    : 1. Default node with npm   cmd> npm server.js
-                   2. If nodemon installed    cmd> nodemon start
+ *  Execution    : 1. Default node with npm   cmd> npm start
  *
  * Purpose      : main component of our application
  *
@@ -11,7 +10,7 @@
  * @module      :  app component contains all child components and route
  * @author      : Shaheen M.
  * @version     : 1.0
- * @since       : 29-06-2021
+ * @since       : 19-07-2021
  ******************************************************************************* */
 import "./scss/App.scss";
 import { Register } from "./pages/register";
@@ -20,7 +19,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Dashboard } from "./components/dashboard";
 import { AddEmployee } from "./components/addEmployee";
 import { ListEmployees } from "./components/listEmployees";
-import UpdateEmployee from "./components/updateEmployee"
+import UpdateEmployee from "./components/updateEmployee";
+import ProtectedRoute from "./components/protectedRoute";
 
 function App() {
   return (
@@ -31,10 +31,10 @@ function App() {
           <Route path="/registerUser" component={Register} />
           <Route path="/login" component={Login} />
         </Switch>
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/dashboard/addEmployee" component={AddEmployee} />
-        <Route path="/dashboard/listEmployees" component={ListEmployees} />
-        <Route path="/dashboard/updateEmployee/:employeeId" component={UpdateEmployee} />
+        <ProtectedRoute path="/dashboard" component={Dashboard} />
+        <ProtectedRoute path="/dashboard/addEmployee" component={AddEmployee} />
+        <ProtectedRoute path="/dashboard/listEmployees" component={ListEmployees} />
+        <ProtectedRoute path="/dashboard/updateEmployee/:employeeId" component={UpdateEmployee} />
       </div>
     </BrowserRouter>
   );

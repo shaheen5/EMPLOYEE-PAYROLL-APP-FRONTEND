@@ -1,3 +1,17 @@
+/** ******************************************************************************
+ *  Execution    : 1. Default node with npm   cmd> npm start
+ *
+ * Purpose      : create List Employee Details Form UI
+ *
+ * @description  :modules need to be required before execution of this file
+ *
+ * @file        : component/listEmployees.jsx
+ * @overview    : list employees component
+ * @module      : Contains functional component to return employee details tabular format
+ * @author      : Shaheen M.
+ * @version     : 1.0
+ * @since       : 19-07-2021
+ ********************************************************************************/
 import React, { useState, useEffect } from "react";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -10,7 +24,9 @@ import Paper from '@material-ui/core/Paper';
 import { Employee } from '../services/employee'
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const employee = new Employee();
 
 const StyledTableCell = withStyles((theme) => ({
@@ -52,10 +68,10 @@ export const ListEmployees = () => {
         setEmployees(response.data.data);
       }
       else {
-        console.log("Some error occurred!");
+        toast.error("Some error occurred!");
       }
     }).catch((error) => {
-      console.log(error.message);
+      toast.error(error.message);
     });
   };
 
@@ -65,12 +81,11 @@ export const ListEmployees = () => {
 
   const deleteEmployee = (employeeId) => {
     employee.removeEmployee(employeeId)
-            .then((response)=>{
-              console.log(response)
-              alert(response.data.message);
-            }).catch(error=>{
-              console.log(error.message);
-            });
+      .then((response) => {
+        toast.success(response.data.message);
+      }).catch(error => {
+        toast.error("Employee Details Not Deleted!");
+      });
     loadEmployees();
   }
 
@@ -107,6 +122,15 @@ export const ListEmployees = () => {
           ))}
         </TableBody>
       </Table>
+      <ToastContainer
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover />
     </TableContainer>
   );
 }

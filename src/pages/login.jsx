@@ -1,3 +1,17 @@
+/********************************************************************************
+ *  Execution    : 1. Default node with npm   cmd> npm start
+ *
+ * Purpose      : create Login Page user interface
+ *
+ * @description  :modules need to be required before execution of this file
+ *
+ * @file        : pages/login.jsx
+ * @overview    : login page component
+ * @module      : Contains functional component to return login Form UI
+ * @author      : Shaheen M.
+ * @version     : 1.0
+ * @since       : 19-07-2021
+ ******************************************************************************* */
 import React from "react";
 import {
   Grid,
@@ -13,6 +27,7 @@ import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import auth from '../services/auth';
 import { User } from "../services/user";
 const user = new User();
 
@@ -39,14 +54,20 @@ export const Login = () => {
     user
       .userLogin(loginDetails)
       .then((response) => {
-        toast.success("Login Successfull");
-        localStorage.setItem("token", response.data.data);
-        setTimeout(() => {
-          history.push("/dashboard");
-        }, 3000);
-      })
-      .catch((error) => {
-        console.log(error.message);
+        if (response.data.success === true) {
+          localStorage.setItem("token", response.data.data);
+          setTimeout(() => {
+            auth.login(() => {
+              history.push("/dashboard");
+            });
+          }, 2000);
+          toast.success("Login Successfull");
+        }
+        else {
+          toast.error("Some error occured during login");
+        }
+      }).catch((error) => {
+        toast.error("Login Failed !");
       });
 
     props.resetForm();
@@ -114,7 +135,7 @@ export const Login = () => {
               Do you have an account ?<Link to="/registerUser">Sign Up</Link>
             </Typography>
             <ToastContainer
-              autoClose={3000}
+              autoClose={2000}
               hideProgressBar={false}
               newestOnTop={false}
               closeOnClick

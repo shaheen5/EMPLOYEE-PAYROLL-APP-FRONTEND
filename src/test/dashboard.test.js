@@ -1,3 +1,17 @@
+/** ******************************************************************************
+ *  Execution    : 1. Default node with npm   cmd> npm start
+ *
+ * Purpose      : Test Dashboard Component
+ *
+ * @description  :modules need to be required before execution of this file
+ *
+ * @file        : test/dashboard.test.js
+ * @overview    : Testing using jest and enzyme
+ * @module      : Contains code to test form elements in dashboard component 
+ * @author      : Shaheen M.
+ * @version     : 1.0
+ * @since       : 19-07-2021
+ ********************************************************************************/
 import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
