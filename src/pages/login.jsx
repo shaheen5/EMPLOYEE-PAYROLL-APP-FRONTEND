@@ -29,19 +29,17 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import auth from '../services/auth';
 import { User } from "../services/user";
+import '../scss/login.scss';
 const user = new User();
 
 export const Login = () => {
   const history = useHistory();
   const paperStyle = {
-    padding: 20,
-    height: "70vh",
+    padding: 20 ,
+    height : "70vh",
     width: 280,
-    margin: "30px auto",
-  };
-  const avatarStyle = { backgroundColor: "#1bbd7e" };
-  const btnstyle = { margin: "25px 0" };
-
+    margin: "30px auto"
+  }
   const initialValues = {
     email: "",
     password: "",
@@ -78,12 +76,12 @@ export const Login = () => {
   });
   return (
     <Grid>
-      <Paper elevation={10} style={paperStyle}>
+      <Paper elevation={10} style={paperStyle} align="center">
         <Grid align="center">
           <h2 data-testid="title" className="header">
             EMPLOYEE PAYROLL
           </h2>
-          <Avatar style={avatarStyle} data-testid="logo">
+          <Avatar className="avatarStyle" data-testid="logo">
             <LockOutlinedIcon />
           </Avatar>
           <h2 data-testid="signin">Sign In</h2>
@@ -102,8 +100,8 @@ export const Login = () => {
               name="email"
               data-testid="email"
               helperText={
-                <ErrorMessage name="email">
-                  {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                <ErrorMessage name="email" >
+                  {(msg) => <div className="errorMsg">{msg}</div>}
                 </ErrorMessage>
               }
             />
@@ -116,8 +114,8 @@ export const Login = () => {
               fullWidth
               data-testid="password"
               helperText={
-                <ErrorMessage name="password">
-                  {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                <ErrorMessage name="password" >
+                  {(msg) => <div className="errorMsg">{msg}</div>}
                 </ErrorMessage>
               }
             />
@@ -125,7 +123,7 @@ export const Login = () => {
               type="submit"
               color="primary"
               variant="contained"
-              style={btnstyle}
+              className="btnstyle"
               data-testid="submitButton"
               fullWidth
             >

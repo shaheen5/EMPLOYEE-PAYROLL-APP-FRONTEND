@@ -1,4 +1,18 @@
 import React from "react";
+/** ******************************************************************************
+ *  Execution    : 1. Default node with npm   cmd> npm start
+ *
+ * Purpose      : create Add Employee Details Form UI
+ *
+ * @description  :modules need to be required before execution of this file
+ *
+ * @file        : component/addEmployee.jsx
+ * @overview    : add employee component
+ * @module      : Contains functional component to return employee Form UI
+ * @author      : Shaheen M.
+ * @version     : 1.0
+ * @since       : 19-07-2021
+ ********************************************************************************/
 import { Grid, Paper, TextField, Button, FormLabel } from "@material-ui/core";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -86,7 +100,7 @@ export const AddEmployee = () => {
                 placeholder="Enter your first name"
                 helperText={
                   <ErrorMessage name="firstName">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -100,7 +114,7 @@ export const AddEmployee = () => {
                 placeholder="Enter your last name"
                 helperText={
                   <ErrorMessage name="lastName">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -112,7 +126,7 @@ export const AddEmployee = () => {
                 data-testid="salary"
                 helperText={
                   <ErrorMessage name="salary">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -124,7 +138,7 @@ export const AddEmployee = () => {
                 data-testid="department"
                 helperText={
                   <ErrorMessage name="department">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -137,7 +151,7 @@ export const AddEmployee = () => {
                 placeholder="Enter your email id"
                 helperText={
                   <ErrorMessage name="email">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />

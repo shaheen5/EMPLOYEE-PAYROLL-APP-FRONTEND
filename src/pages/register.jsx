@@ -125,7 +125,7 @@ export const Register = () => {
                 placeholder="Enter your first name"
                 helperText={
                   <ErrorMessage name="firstName">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -138,7 +138,7 @@ export const Register = () => {
                 placeholder="Enter your last name"
                 helperText={
                   <ErrorMessage name="lastName">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -151,7 +151,7 @@ export const Register = () => {
                 placeholder="Enter your email id"
                 helperText={
                   <ErrorMessage name="email">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -165,7 +165,7 @@ export const Register = () => {
                 placeholder="Enter your password"
                 helperText={
                   <ErrorMessage name="password">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
